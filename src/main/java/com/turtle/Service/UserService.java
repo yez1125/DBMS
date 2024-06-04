@@ -3,7 +3,7 @@ package com.turtle.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.turtle.Database.User.UserRepository;
+import com.turtle.Database.User.UsersRepository;
 import com.turtle.Database.User.Users;
 
 import reactor.core.publisher.Mono;
@@ -12,13 +12,13 @@ import reactor.core.publisher.Mono;
 public class UserService {
 
   @Autowired
-  private UserRepository userRepository;
+  private UsersRepository userRepository;
 
 
   /*
    * Get user by id, empty if not found
    */
-  public Mono<Users> getUserById(String userId) {
+  public Mono<Users> getUserById(Long userId) {
     return userRepository.findById(userId);
   }
 
