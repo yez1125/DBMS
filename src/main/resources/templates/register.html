@@ -36,10 +36,10 @@
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
                             </div>
-                            <form class="user needs-validation" novalidate>
+                            <form class="user needs-validation" novalidate id="registerForm">
                                 <div class="form-group row">
                                     <div class="col mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user" id="Name" placeholder="Name" required>
+                                        <input type="text" class="form-control form-control-user" id="name" placeholder="Name" required>
                                         <div class="invalid-feedback">Please provide your name.</div>
                                     </div>
                                     <div class="col-sm-6">
@@ -48,7 +48,7 @@
                                     </div>                                    
                                 </div>
                                 <div class="form-group">
-                                    <input type="email" class="form-control form-control-user" id="exampleInputEmail" placeholder="Email Address" required>
+                                    <input type="email" class="form-control form-control-user" id="email" placeholder="Email Address" required>
                                     <div class="invalid-feedback">Please provide a valid email address.</div>
                                 </div>
                                 <div class="form-group row">
@@ -63,7 +63,7 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="password" class="form-control form-control-user" id="InputPassword" placeholder="Password" required>
+                                        <input type="password" class="form-control form-control-user" id="password" placeholder="Password" required>
                                         <div class="invalid-feedback" id="password-feedback">Password is required.</div>
                                     </div>
                                     <div class="col-sm-6">
@@ -120,6 +120,7 @@
                                                     event.stopPropagation();
                                                 } else {
                                                     event.preventDefault(); // Prevent the form from submitting normally
+                                                    
                                                     window.location.href = 'login.html'; // Redirect to login.html
                                                 }
                         
@@ -150,6 +151,7 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
+    <script src="../static/register.js" type="text/javascript"></script>
 
 </body>
 

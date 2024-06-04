@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Builder(toBuilder = true)
 public class Goal {
     @Id
-    private Long goalID;
+    private String goalID;
 
     private String type;
 

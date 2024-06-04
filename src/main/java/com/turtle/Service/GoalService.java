@@ -16,7 +16,7 @@ public class GoalService {
         return goalRepository.save(goal);
     }
 
-    public Mono<Goal> getGoal(Long ID){
+    public Mono<Goal> getGoal(String ID){
         return goalRepository.findById(ID);
     }
 

@@ -1,12 +1,10 @@
 package com.turtle.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 
 import com.turtle.Database.Article.Article;
 import com.turtle.Database.Comment.Comment;
@@ -26,8 +24,10 @@ public class CommentController {
         return commentService.createComment(comment);
     }
 
-    @GetMapping("/getByArticle")
-    public Flux<Comment> getComment(Article article){
-        return commentService.getCommentByArticle(article).switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.BAD_REQUEST, "No Comment")));    
+    @GetMapping("/fetch")
+    public Flux<Comment>fetch(Article article){
+        return commentService.getByArticle(article.getID());
     }
+
+
 }

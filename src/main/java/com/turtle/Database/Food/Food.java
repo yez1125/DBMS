@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 
 public class Food {
     @Id
-    private Long ID;
+    private String ID;
     private String name;
     private Long caloried;
     private Long protein;

@@ -6,8 +6,6 @@ import java.util.Date;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.turtle.Database.Article.Article;
-import com.turtle.Database.User.Users;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,10 +19,10 @@ import lombok.NoArgsConstructor;
 @Builder(toBuilder = true)
 public class Comment {
     @Id
-    private Long commentID;
-    private Article article;
+    private String commentID;
+    private String articleID;
 
-    private Users User;
+    private String userID;
 
     private String comment;
 

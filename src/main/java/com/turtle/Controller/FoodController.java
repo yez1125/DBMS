@@ -2,7 +2,6 @@ package com.turtle.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,14 +29,9 @@ public class FoodController {
     public Flux<Food> getAllData(){
         return foodService.getFood();
     }
-    /*FIX */
+    
     @GetMapping("/fetchByName")
-    public Flux<Food> getByName(String name){
-        return foodService.getFoodByName(name).switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.BAD_REQUEST, "Food not found")));
-    }
-    /*fix */
-    @DeleteMapping("/delete")
-    public void delete(Food food){
-        foodService.deleteById(food.getID());
+    public Flux<Food> getByName(Food food){
+        return foodService.getFoodByName(food.getName()).switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.BAD_REQUEST, "Food not found")));
     }
 }

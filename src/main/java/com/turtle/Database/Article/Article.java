@@ -6,7 +6,6 @@ import java.util.Date;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.turtle.Database.User.Users;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,14 +19,13 @@ import lombok.NoArgsConstructor;
 @Builder(toBuilder = true)
 public class Article {
     @Id
-
-    private Long ID;
+    private String ID;
 
     private String title;
 
     private String content;
 
-    private Users user;
+    private String userID;
 
     private Date date;
 

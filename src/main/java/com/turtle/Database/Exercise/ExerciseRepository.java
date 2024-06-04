@@ -7,6 +7,6 @@ import reactor.core.publisher.Mono;
 
 
 @Repository
-public interface ExerciseRepository extends ReactiveMongoRepository<Exercise,Long>{
+public interface ExerciseRepository extends ReactiveMongoRepository<Exercise,String>{
     Mono<Exercise> findByName(String name);
 }

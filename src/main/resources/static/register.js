@@ -7,9 +7,9 @@
                 email: $('#email').val(),
                 password: $('#password').val(),
                 name: $('#name').val(),
-                birthday:$('birthday').val(),
-                height:$('height').val(),
-                weight:$('weight').val()
+                birthday:$('#birthday').val(),
+                height:$('#height').val(),
+                weight:$('#weight').val()
             };
             // Send POST request to /api/user
             $.ajax({
@@ -19,7 +19,7 @@
                 contentType: 'application/json',
                 // If success, alert user and redirect to login page
                 success: function (response) {
-                    alert(response.nickname + ' registered successfully');
+                    alert(response.name + ' registered successfully');
                     window.location.href = '/login';
                 },
                 // If error, alert user

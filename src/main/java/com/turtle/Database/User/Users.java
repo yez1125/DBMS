@@ -15,8 +15,7 @@ import lombok.NoArgsConstructor;
 @Builder(toBuilder = true)
 public class Users {
   @Id 
-  private Long userID;
-  private Long goalID;
+  private String userID;
   private String email;
   private float height;
   private float weight;

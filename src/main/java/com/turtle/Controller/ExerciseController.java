@@ -24,7 +24,7 @@ public class ExerciseController {
     }
 
     @GetMapping("/getByName")
-    public Mono<Exercise>getByName(String name){
-        return exerciseService.getExercise(name).switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.BAD_REQUEST, "No data")));
+    public Mono<Exercise>getByName(Exercise exercise){
+        return exerciseService.getExercise(exercise.getName()).switchIfEmpty(Mono.error(new ResponseStatusException(HttpStatus.BAD_REQUEST, "No data")));
     }
 }

@@ -3,9 +3,9 @@ package com.turtle.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.turtle.Database.Article.Article;
 import com.turtle.Database.Comment.Comment;
 import com.turtle.Database.Comment.CommentRepository;
+
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -18,7 +18,10 @@ public class CommentService {
         return commentRepository.save(comment);
     }
 
-    public Flux<Comment> getCommentByArticle(Article article){
-        return commentRepository.findByArticle(article);
+    public Flux<Comment> getByArticle(String articleID){
+        return commentRepository.findCommentByArticleID(articleID);
     }
+
+
+    
 }

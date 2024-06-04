@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 
 public class Exercise {
     @Id
-    private Long exerciseID;
+    private String exerciseID;
     private String name;
     private String type;
     private int cal;

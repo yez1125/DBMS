@@ -21,7 +21,4 @@ public class ExerciseService {
         return exerciseRepository.save(exercise);
     }
 
-    public void deleteById(Long id) {
-        exerciseRepository.deleteById(id);
-    }
 }

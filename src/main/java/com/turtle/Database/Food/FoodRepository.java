@@ -7,6 +7,6 @@ import reactor.core.publisher.Flux;
 
 
 @Repository
-public interface FoodRepository extends ReactiveMongoRepository<Food,Long>{
+public interface FoodRepository extends ReactiveMongoRepository<Food,String>{
     Flux<Food> findByName(String name);
 }

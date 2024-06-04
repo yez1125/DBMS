@@ -6,7 +6,6 @@ import java.util.Date;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.turtle.Database.User.Users;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,12 +19,11 @@ import lombok.NoArgsConstructor;
 @Builder(toBuilder = true)
 public class Meal {
     @Id
+    private String mealID;
 
-    private Long mealID;
+    private String user;
 
-    private Users user;
-
-    private Long foodID;
+    private String foodID;
 
     private String type;
 

@@ -7,12 +7,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.turtle.Database.Goal.Goal;
+import com.turtle.Database.User.Users;
 import com.turtle.Service.GoalService;
 
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("/gaol")
+@RequestMapping("/goal")
 public class GoalController {
     @Autowired
     private GoalService goalService;
@@ -23,7 +24,7 @@ public class GoalController {
     }
 
     @GetMapping("/get")
-    public Mono<Goal> get(Long ID){
-        return goalService.getGoal(ID);
+    public Mono<Goal> get(Users user){
+        return goalService.getGoal(user.getUserID());
     }
 }

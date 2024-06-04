@@ -18,7 +18,7 @@ public class UserService {
   /*
    * Get user by id, empty if not found
    */
-  public Mono<Users> getUserById(Long userId) {
+  public Mono<Users> getUserById(String userId) {
     return userRepository.findById(userId);
   }
 
@@ -29,11 +29,10 @@ public class UserService {
     return userRepository.findByEmail(email);
   }
 
-  public Mono<Void> deleteUserByUser(Users user) {
-    return userRepository.delete(user);
-  }
 
   public Mono<Users> saveUser(Users user) {
     return userRepository.save(user);
   }
+
+  
 }
