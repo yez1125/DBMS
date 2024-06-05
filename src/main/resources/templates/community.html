@@ -176,7 +176,7 @@
                     <!-- Database Script -->
                     <script>
                         $(document).ready(function() {
-                            // 当页面加载完成后，发送AJAX请求
+                            // 当页面加载完成后，发送第一个AJAX请求
                             (function () {
                                 var httpRequest;
                 
@@ -187,24 +187,43 @@
                                         alert("Giving up :( Cannot create an XMLHTTP instance");
                                         return false;
                                     }
-                                    httpRequest.onreadystatechange = alertContents;
+                                    httpRequest.onreadystatechange = function() {
+                                        if (httpRequest.readyState === XMLHttpRequest.DONE) {
+                                            if (httpRequest.status === 200) {
+                                                var articlesData = JSON.parse(httpRequest.responseText);
+                                                displayArticles(articlesData);
+                                                fetchComments(); // 发送第二个AJAX请求
+                                            } else {
+                                                alert("There was a problem with the request.");
+                                            }
+                                        }
+                                    };
                                     httpRequest.open("POST", "http://127.0.0.1:64550/article/get");
                                     httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                                     httpRequest.send();
                                 }
                 
-                                function alertContents() {
-                                    if (httpRequest.readyState === XMLHttpRequest.DONE) {
-                                        if (httpRequest.status === 200) {
-                                            var articlesData = JSON.parse(httpRequest.responseText);
-                                            displayArticles(articlesData);
-                                        } else {
-                                            alert("There was a problem with the request.");
-                                        }
+                                function fetchComments() {
+                                    httpRequest = new XMLHttpRequest();
+                
+                                    if (!httpRequest) {
+                                        alert("Giving up :( Cannot create an XMLHTTP instance");
+                                        return false;
                                     }
+                                    httpRequest.onreadystatechange = function() {
+                                        if (httpRequest.readyState === XMLHttpRequest.DONE) {
+                                            if (httpRequest.status === 200) {
+                                                var commentsData = JSON.parse(httpRequest.responseText);
+                                                displayComments(commentsData);
+                                            } else {
+                                                alert("There was a problem with the request.");
+                                            }
+                                        }
+                                    };
+                                    httpRequest.open("GET", "http://127.0.0.1:64550/comment/fetch");
+                                    httpRequest.send();
                                 }
                 
-                                // 显示文章内容的函数
                                 function displayArticles(articlesData) {
                                     $.each(articlesData, function(index, article) {
                                         var articleHTML = `
@@ -232,9 +251,51 @@
                                     });
                                 }
                 
-                                // 页面加载完成后立即执行请求
+                                function displayComments(commentsData) {
+                                    $.each(commentsData, function(index, comment) {
+                                        var articleContainer = $(`.article[data-article-id="${comment.post_id}"]`);
+                                        var commentHTML = `
+                                            <div class="box"><h5>${comment.user}</h5>${comment.message}</div>
+                                        `;
+                                        articleContainer.find('.scroll-container').append(commentHTML);
+                                    });
+                                }
+                
+                                // 页面加载完成后立即执行第一个AJAX请求
                                 makeRequest();
                             })();
+                
+                            // 添加留言按钮的功能
+                            $(document).on('click', '.btn-primary', function() {
+                                if ($('.scroll-container').find('textarea').length > 0) {
+                                    return;
+                                }
+                                var newBox = document.createElement("div");
+                                newBox.className = "box";
+                                var textarea = document.createElement("textarea");
+                                textarea.className = "form-control";
+                                textarea.setAttribute("aria-label", "With textarea");
+                                var submitBtn = document.createElement("button");
+                                submitBtn.textContent = "提交";
+                                submitBtn.className = "btn btn-primary";
+                                submitBtn.addEventListener("click", function() {
+                                    var text = textarea.value.trim();
+                                    if (text !== "") {
+                                        var content = document.createTextNode(text);
+                                        newBox.innerHTML = "<h5>User</h5>";
+                                        newBox.appendChild(content);
+                                    }
+                                    newBox.removeChild(textarea);
+                                    newBox.removeChild(submitBtn);
+                                    if (text === "") {
+                                        newBox.remove();
+                                    }
+                                });
+                                newBox.appendChild(textarea);
+                                newBox.appendChild(submitBtn);
+                                var container = $(this).closest(".article").find(".scroll-container");
+                                container.prepend(newBox);
+                            });
                         });
                     </script>
 
