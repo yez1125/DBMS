@@ -191,8 +191,7 @@
                                         if (httpRequest.readyState === XMLHttpRequest.DONE) {
                                             if (httpRequest.status === 200) {
                                                 var articlesData = JSON.parse(httpRequest.responseText);
-                                                displayArticles(articlesData);
-                                                fetchComments(); // 发送第二个AJAX请求
+                                                fetchComments(articlesData);
                                             } else {
                                                 alert("There was a problem with the request.");
                                             }
@@ -203,7 +202,7 @@
                                     httpRequest.send();
                                 }
                 
-                                function fetchComments() {
+                                function fetchComments(articlesData) {
                                     httpRequest = new XMLHttpRequest();
                 
                                     if (!httpRequest) {
@@ -214,7 +213,7 @@
                                         if (httpRequest.readyState === XMLHttpRequest.DONE) {
                                             if (httpRequest.status === 200) {
                                                 var commentsData = JSON.parse(httpRequest.responseText);
-                                                displayComments(commentsData);
+                                                displayData(articlesData, commentsData);
                                             } else {
                                                 alert("There was a problem with the request.");
                                             }
@@ -224,10 +223,20 @@
                                     httpRequest.send();
                                 }
                 
-                                function displayArticles(articlesData) {
-                                    $.each(articlesData, function(index, article) {
+                                function displayData(articlesData, commentsData) {
+                                    // Sort articles by post_time
+                                    articlesData.sort((a, b) => new Date(b.post_time) - new Date(a.post_time));
+                
+                                    // Associate comments with articles
+                                    var articlesWithComments = articlesData.map(article => {
+                                        article.comments = commentsData.filter(comment => comment.post_id === article.post_id);
+                                        return article;
+                                    });
+                
+                                    // Display articles with comments
+                                    articlesWithComments.forEach(article => {
                                         var articleHTML = `
-                                            <div class="article" data-article-id="${article.id}">
+                                            <div class="article" data-article-id="${article.post_id}">
                                                 <div class="row">
                                                     <div class="col" style="color: rgb(4, 4, 29);">
                                                         <h4>${article.title}</h4>
@@ -242,6 +251,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="scroll-container">
+                                                    ${generateCommentsHTML(article.comments)}
                                                 </div>
                                             </div>
                                             <!-- Divider -->
@@ -251,14 +261,19 @@
                                     });
                                 }
                 
-                                function displayComments(commentsData) {
-                                    $.each(commentsData, function(index, comment) {
-                                        var articleContainer = $(`.article[data-article-id="${comment.post_id}"]`);
-                                        var commentHTML = `
-                                            <div class="box"><h5>${comment.user}</h5>${comment.message}</div>
+                                // Generate HTML for comments
+                                function generateCommentsHTML(comments) {
+                                    // Sort comments by comment_time
+                                    comments.sort((a, b) => new Date(a.comment_time) - new Date(b.comment_time));
+                                    var commentsHTML = comments.map(comment => {
+                                        return `
+                                            <div class="box">
+                                                <h5>${comment.user_id}</h5>
+                                                <p>${comment.content}</p>
+                                            </div>
                                         `;
-                                        articleContainer.find('.scroll-container').append(commentHTML);
                                     });
+                                    return commentsHTML.join('');
                                 }
                 
                                 // 页面加载完成后立即执行第一个AJAX请求
@@ -284,6 +299,27 @@
                                         var content = document.createTextNode(text);
                                         newBox.innerHTML = "<h5>User</h5>";
                                         newBox.appendChild(content);
+                                        // 构造评论对象
+                                        var comment = {
+                                            post_id: $(this).closest(".article").data("article-id"),
+                                            content: text
+                                        };
+                                        // 发送 AJAX POST 请求
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "http://127.0.0.1:64550/comment/create",
+                                            contentType: "application/json",
+                                            data: JSON.stringify(comment),
+                                            success: function(response) {
+                                                // 成功处理返回的数据
+                                                console.log("留言成功：", response);
+                                                // 刷新页面或执行其他操作
+                                            },
+                                            error: function(xhr, status, error) {
+                                                // 处理错误情况
+                                                console.error("留言失败：", error);
+                                            }
+                                        });
                                     }
                                     newBox.removeChild(textarea);
                                     newBox.removeChild(submitBtn);
