@@ -27,5 +27,7 @@ public class Goal {
 
     private int expectDays;
 
+    private String userID;
+
     
 }

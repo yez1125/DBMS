@@ -20,5 +20,13 @@ public class GoalService {
         return goalRepository.findById(ID);
     }
 
+    public Mono<Goal>getGoalByUser(String user){
+        return goalRepository.findGoalByUserID(user);
+    }
+
+    public void delete(String goal){
+        goalRepository.deleteById(goal);
+    }
+
 
 }

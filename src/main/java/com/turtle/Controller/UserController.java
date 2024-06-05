@@ -26,7 +26,7 @@ public class UserController {
 
     @PostMapping("/register")
     public Mono<Users> register(Users user) {
-        log.info(user.toString());
+        
         return userService.getUserByEmail(user.getEmail()).flatMap(_user -> {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User already exist");
         })

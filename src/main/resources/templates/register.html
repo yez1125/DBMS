@@ -12,10 +12,7 @@
     <title>Register</title>
 
     <!-- Custom fonts for this template-->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+    <link th:href="@{vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
 
     <!-- Custom styles for this template-->
     <link th:href="@{css/sb-admin-2.min.css}" rel="stylesheet">
@@ -36,100 +33,44 @@
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
                             </div>
-                            <form class="user needs-validation" novalidate id="registerForm">
+                            <form id ="registerForm">
                                 <div class="form-group row">
                                     <div class="col mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user" id="name" placeholder="Name" required>
+                                        <input type="text" class="form-control form-control-user" id="name" placeholder="Name" >
                                         <div class="invalid-feedback">Please provide your name.</div>
                                     </div>
                                     <div class="col-sm-6">
-                                        <input type="date" class="form-control form-control-user" id="birthday" placeholder="Birthday" required>
+                                        <input type="date" class="form-control form-control-user" id="birthday" placeholder="Birthday" >
                                         <div class="invalid-feedback">Please provide your birthday.</div>
                                     </div>                                    
                                 </div>
                                 <div class="form-group">
-                                    <input type="email" class="form-control form-control-user" id="email" placeholder="Email Address" required>
+                                    <input type="email" class="form-control form-control-user" id="email" placeholder="Email Address" >
                                     <div class="invalid-feedback">Please provide a valid email address.</div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user" id="height" placeholder="Height (cm)" required>
+                                        <input type="text" class="form-control form-control-user" id="height" placeholder="Height (cm)" >
                                         <div class="invalid-feedback" id="height-feedback">Please provide a valid height.</div>
                                     </div>
                                     <div class="col-sm-6">
-                                        <input type="text" class="form-control form-control-user" id="weight" placeholder="Weight (kg)" required>
+                                        <input type="text" class="form-control form-control-user" id="weight" placeholder="Weight (kg)" >
                                         <div class="invalid-feedback" id="weight-feedback">Please provide a valid weight.</div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="password" class="form-control form-control-user" id="password" placeholder="Password" required>
+                                        <input type="password" class="form-control form-control-user" id="password" placeholder="Password">
                                         <div class="invalid-feedback" id="password-feedback">Password is required.</div>
                                     </div>
-                                    <div class="col-sm-6">
-                                        <input type="password" class="form-control form-control-user" id="RepeatPassword" placeholder="Repeat Password" required>
-                                        <div class="invalid-feedback" id="repeat-password-feedback">Passwords do not match.</div>
-                                    </div>
+                                    
                                 </div>
 
                                 <button class="btn btn-primary btn-user btn-block mb-2" type="submit">Register Account</button>
                             </form>
 
-                            <script>
-                                (function () {
-                                    'use strict';
+        
                         
-                                    window.addEventListener('load', function () {
-                                        var forms = document.getElementsByClassName('needs-validation');
-                                        Array.prototype.filter.call(forms, function (form) {
-                                            form.addEventListener('submit', function (event) {
-                                                var isValid = true;
-                        
-                                                // Get input elements
-                                                var heightInput = document.getElementById('height');
-                                                var weightInput = document.getElementById('weight');
-                                                var passwordInput = document.getElementById('InputPassword');
-                                                var repeatPasswordInput = document.getElementById('RepeatPassword');
-                        
-                                                // Reset custom validity messages
-                                                heightInput.setCustomValidity('');
-                                                weightInput.setCustomValidity('');
-                                                passwordInput.setCustomValidity('');
-                                                repeatPasswordInput.setCustomValidity('');
-                        
-                                                // Check height
-                                                if (isNaN(heightInput.value) || heightInput.value.trim() === '') {
-                                                    heightInput.setCustomValidity('Invalid height');
-                                                    isValid = false;
-                                                }
-                        
-                                                // Check weight
-                                                if (isNaN(weightInput.value) || weightInput.value.trim() === '') {
-                                                    weightInput.setCustomValidity('Invalid weight');
-                                                    isValid = false;
-                                                }
-                        
-                                                // Check repeat password
-                                                if (repeatPasswordInput.value !== passwordInput.value) {
-                                                    repeatPasswordInput.setCustomValidity('Passwords do not match');
-                                                    isValid = false;
-                                                }
-                        
-                                                if (form.checkValidity() === false || !isValid) {
-                                                    event.preventDefault();
-                                                    event.stopPropagation();
-                                                } else {
-                                                    event.preventDefault(); // Prevent the form from submitting normally
-                                                    
-                                                    window.location.href = 'login.html'; // Redirect to login.html
-                                                }
-                        
-                                                form.classList.add('was-validated');
-                                            }, false);
-                                        });
-                                    }, false);
-                                })();
-                            </script>
 
                             <div class="text-center">
                                 <a class="small" href="login">Already have an account? Login!</a>
@@ -143,15 +84,46 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script th:src="@{vendor/jquery/jquery.min.js}"></script>
+    <script th:src="@{vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script th:src="@{vendor/jquery-easing/jquery.easing.min.js}"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
-    <script src="../static/register.js" type="text/javascript"></script>
+    <script th:src="@{js/sb-admin-2.min.js}"></script>
+    <script>
+        $('#registerForm').on('submit', function (e) {
+            // Prevent default form submission
+            e.preventDefault();
+            // Create user object
+            var user = {
+                email: $('#email').val(),
+                password: $('#password').val(),
+                name: $('#name').val(),
+                birthday:$('#birthday').val(),
+                height:$('#height').val(),
+                weight:$('#weight').val()
+            };
+            console.log(user)
+            // Send POST request to /api/user
+            $.ajax({
+                type: 'POST',
+                url: '/user/register',
+                data: JSON.stringify(user),
+                contentType: 'application/json',
+                // If success, alert user and redirect to login page
+                success: function (response) {
+                    alert(response.name + ' registered successfully');
+                    window.location.href = '/login';
+                },
+                // If error, alert user
+                error: function (error) {
+                    alert(error.responseText);
+                }
+            });
+        });
+    </script>
 
 </body>
 
