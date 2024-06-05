@@ -225,9 +225,6 @@
                                 }
                 
                                 function displayData(articlesData, commentsData) {
-                                    // Sort articles by post_time
-                                    articlesData.sort((a, b) => new Date(b.post_time) - new Date(a.post_time));
-                
                                     // Associate comments with articles
                                     var articlesWithComments = articlesData.map(article => {
                                         article.comments = commentsData.filter(comment => comment.post_id === article.post_id);
